@@ -13,12 +13,23 @@ public class TicTacToeHashCode extends Board {
   //   possible values the game board (3 ^ 9) and it MUST use the super.charAt(row, col) function
   @Override
     public int myHashCode() {
-
-      return 0;
+	  int powerOfThree[][] = new int[][]{{1, 3, 9}, {27, 81, 243}, {729, 2187, 6561}};
+	  int sum = 0;
+	  for(int r = 0; r < TicTacToe.ROWS; r++) {
+		  for(int c = 0; c < TicTacToe.ROWS; c++) {
+			  if(super.charAt(r, c) == 'O')
+				  sum += powerOfThree[r][c];
+			  else
+				  sum += 2 * powerOfThree[r][c]; 
+		  }  
+	  }
+      return sum;
    }
    
     public boolean isWin(String s) {
-    // return the value in the winner array for the hash chode of the board string sent in.
+    	
+    	
+    	
     return true;
     }
   
@@ -26,8 +37,10 @@ public class TicTacToeHashCode extends Board {
       TicTacToeHashCode board = new TicTacToeHashCode ("Tic Tac Toe");
       while (true) {
       
-         String currentBoard = board.boardValues[(int)(Math.random()* board.boardValues.length)];
-         board.show(currentBoard);
+       //TODO this line no longer works
+       //  String currentBoard = board.boardValues[(int)(Math.random()* board.boardValues.length)];
+         
+         board.displayRandomString();
          board.setHashCode(board.myHashCode());
          // TODO Update this line to call your isWin method.
          board.setWinner(TicTacToe.isWin(currentBoard));
@@ -35,4 +48,4 @@ public class TicTacToeHashCode extends Board {
          Thread.sleep(4000);      
       }
    }
-}
+ } 
