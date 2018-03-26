@@ -4,10 +4,11 @@ import java.util.HashMap;
 public class TicTacToeHashMap  {
 
 // TODO Define a hash map to store the winning strings as Key and true as Value
-
+	HashMap WinMap;
+	
    TicTacToeHashMap() {
    // TODO Instantiate/fill your HashMap ... pay attention to initial capacity and load values
-   
+	   WinMap = new HashMap(19683);
    }
 
 // TODO This method uses reflect to investigate the objects inside the HashMap
@@ -17,7 +18,7 @@ public class TicTacToeHashMap  {
    private int capacity() throws NoSuchFieldException, IllegalAccessException {
       Field tableField = HashMap.class.getDeclaredField("table");
       tableField.setAccessible(true);
-      Object[] table = (Object[]) tableField.get(##YOUR HASH MAP HERE ##);
+      Object[] table = (Object[]) tableField.get(WinMap);
       return table == null ? 0 : table.length;   
    }
    
