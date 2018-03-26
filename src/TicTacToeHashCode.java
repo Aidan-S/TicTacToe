@@ -1,3 +1,8 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+
 //TODO Make sure you remove all of the TODO comments from this file before turning itin
 
 public class TicTacToeHashCode extends Board {
@@ -33,6 +38,20 @@ public class TicTacToeHashCode extends Board {
     return true;
     }
   
+    
+    public static Scanner openWords(String fname) {
+		File file = new File(fname);
+		Scanner input = null;
+		try {
+			input = new Scanner(file);
+		} catch (FileNotFoundException ex) {
+			System.out.println("This isnt there");
+			return null;
+		}
+		return input;	
+	}
+    
+    
    public static void main(String[] args) throws InterruptedException {
       TicTacToeHashCode board = new TicTacToeHashCode ("Tic Tac Toe");
       while (true) {
