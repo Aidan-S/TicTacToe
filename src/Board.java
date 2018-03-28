@@ -175,7 +175,7 @@ abstract class Board extends JFrame implements ActionListener {
 	}
 
 	public void resetBoardString() {
-   boardString = "";
+    boardString = "";
 		for (int r = 0; r < TicTacToe.ROWS; r++)
 			for (int c = 0; c < TicTacToe.COLS; c++) {
 				boardString += buttons[r][c].getText();

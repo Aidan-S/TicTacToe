@@ -1,1 +1,10 @@
-x ox  ox   
+x ox  xo 
+  xoxox  
+  xoxxoox
+o  xxx  o
+oxxxxooox
+  o x    
+  x x ooo
+xoxxoxxox
+xoxoxooxo
+oxxoooxxo

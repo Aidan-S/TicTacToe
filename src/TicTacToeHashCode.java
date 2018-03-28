@@ -48,10 +48,13 @@ public class TicTacToeHashCode extends Board {
 	  int sum = 0;
 	  for(int r = 0; r < TicTacToe.ROWS; r++) {
 		  for(int c = 0; c < TicTacToe.ROWS; c++) {
-			  if(super.charAt(r, c) == 'x')
+			  if(super.charAt(r, c) == 'x') {
 				  sum += powerOfThree[r][c];
-			  else
-				  sum += 2 * powerOfThree[r][c]; 
+		  }else{ 
+				  if(super.charAt(r, c) == 'o') {
+					  sum += 2 * powerOfThree[r][c]; 
+				  }
+		      }
 		  }  
 	  }
       return sum;
@@ -99,14 +102,20 @@ public class TicTacToeHashCode extends Board {
 	public static void main(String[] args) throws InterruptedException {
 		TicTacToeHashCode board = new TicTacToeHashCode("Tic Tac Toe");
 		
-		board.setBoardString("x ox ox  ");
+		Scanner file = openWords("TTT_Tests.txt");
+		String str;
+		while(file.hasNextLine()) {
+			str = file.nextLine();
+			board.setBoardString(str);
+			System.out.println(board.isWin());
+		}
 		
-		System.out.println(board.isWin());
-//		while (true) {
-//		   board.displayRandomString();
-//		   board.setWinnerLabel(board.isWin(board.getBoardString()));
-//		   Thread.sleep(4000);
-//		 }
+		
+//		while (true) {   
+//			board.displayRandomString();
+//			board.setWinnerLabel(board.isWin(board.getBoardString()));
+//			Thread.sleep(4000);
+//		}
 		 
 		 
 	}
