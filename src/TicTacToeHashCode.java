@@ -6,12 +6,21 @@ import java.util.Scanner;
 
 public class TicTacToeHashCode extends Board {
 
+	final int SIZE = 19683;
+	
 	boolean[] winners; // True if the hash string that maps to this index is a winner, false otherwise
 
+	/**
+	 * @author Aidan-S
+	 * date: March 30th, 2018
+	 * method: constructor to set up the hashmap by reading in the tictactoe string text files
+	 * @param s: string for the title
+	 * @return: none
+	 */
 	TicTacToeHashCode(String s) {
 		super(s);
 		Scanner file = openWords("TicTacToeWinners.txt");
-		winners = new boolean[19683];
+		winners = new boolean[SIZE];
 		String str;
 		while(file.hasNextLine()) {
 			str = file.nextLine();
@@ -24,6 +33,14 @@ public class TicTacToeHashCode extends Board {
 		
 	}
 	
+	
+	/**
+	 * @author Aidan-S
+	 * date: March 30th, 2018
+	 * method: determine the index in the hash map from an array of string values
+	 * @param vals: string array of tictactoe values
+	 * @return: the index of this particular board
+	 */
 	public int getNum(String[] vals) {
 		int i = 0;
 		int sum = 0;
@@ -42,6 +59,14 @@ public class TicTacToeHashCode extends Board {
 		return sum;
 	}
 	
+	
+	/**
+	 * @author Aidan-S
+	 * date: March 30th, 2018
+	 * method: determine the index in the hash map of the board
+	 * param: none
+	 * @return: the index of this board
+	 */
 	@Override
     public int myHashCode() {
 	  int powerOfThree[][] = new int[][]{{1, 3, 9}, {27, 81, 243}, {729, 2187, 6561}};
@@ -59,7 +84,15 @@ public class TicTacToeHashCode extends Board {
 	  }
       return sum;
    }
-
+	
+	
+	/**
+	 * @author Aidan-S
+	 * date: March 30th, 2018
+	 * method: determines if the board is a winner by searching the winner array
+	 * @param s: string to examine if its a winner
+	 * @return: whether or not this is a winning board
+	 */
 	@Override
 	public boolean isWin(String s) {
 		if(winners[getNum(s.split("(?!^)"))]) {
@@ -69,6 +102,14 @@ public class TicTacToeHashCode extends Board {
 		}
     }
     
+	
+	/**
+	 * @author Aidan-S
+	 * date: March 30th, 2018
+	 * method: determines if the board is a winner by searching the winner array
+	 * param: none
+	 * @return: whether or not this is a winning board
+	 */
 	@Override
 	public boolean isWin() {
     if(isWin(this.getBoardString()))
@@ -82,7 +123,6 @@ public class TicTacToeHashCode extends Board {
 	 * date: March 23th, 2018
 	 * method: create a scanner that I can use to read in Prof. Kelly's files
 	 * @param fname: the name of the file to read
-	 * @param out: the file to print to
 	 * @return: the scanner for the given file
 	 */
 	public static Scanner openWords(String fname) {
@@ -98,7 +138,14 @@ public class TicTacToeHashCode extends Board {
 	}
 	
 	
-	
+	/**
+	 * @author Aidan-S
+	 * date: March 30th, 2018
+	 * method: main method that reads the tester file and tests if each line is a winning board
+	 * @param args: string arguments array
+	 * return: none
+	 * @throws java.lang.InterruptedException if something interrupts the GUI 
+	 */
 	public static void main(String[] args) throws InterruptedException {
 		TicTacToeHashCode board = new TicTacToeHashCode("Tic Tac Toe");
 		
@@ -106,8 +153,12 @@ public class TicTacToeHashCode extends Board {
 		String str;
 		while(file.hasNextLine()) {
 			str = file.nextLine();
-			board.setBoardString(str);
-			System.out.println(board.isWin());
+			if(str.length() == 9) {
+				board.setBoardString(str);
+				System.out.println(board.isWin());
+			}else {
+				System.out.println(false);
+			}
 		}
 		
 		
