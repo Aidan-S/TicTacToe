@@ -4,38 +4,100 @@ import java.util.Scanner;
 
 public class TTT_HC extends Board{
 
-final int SIZE = 19683;
+final int SIZE = 13000;
 	
-	boolean[] winners; // True if the hash string that maps to this index is a winner, false otherwise
-
+	tictactoeNode[] winners; // True if the hash string that maps to this index is a winner, false otherwise
+	
+	/**
+	 * @author Aidan-S
+	 * date: March 30th, 2018
+	 * method: constructor to set up the hashmap by reading in the tictactoe string text files and then chaining any collisions
+	 * @param s: string for the title
+	 * @return: none
+	 */
 	TTT_HC(String s) {
 		super(s);
 		Scanner file = openWords("TicTacToeWinners.txt");
-		winners = new boolean[SIZE];
+		winners = new tictactoeNode[SIZE];
 		String str;
+		int pos;
+		tictactoeNode t;
+		tictactoeNode k;
 		while(file.hasNextLine()) {
 			str = file.nextLine();
-			winners[getNum(str.split("(?!^)"))] = true;
+			pos = getNum(str.split("(?!^)"));
+			t = new tictactoeNode(null, str, true);
+			if(winners[pos] == null) {
+				winners[pos] = t;
+			}else{
+				if(winners[pos].getNext() == null) {
+					winners[pos].setNext(t);
+				}else{
+					k = winners[pos].getNext();
+					while(k.getNext() != null) {
+					k = k.getNext();
+					}
+					k.setNext(t);
+				}
+			}
+		}
+		
+		for(int i = 0; i < winners.length; i++) {
+			if(winners[i] == null) {
+				winners[i] = new tictactoeNode(null, null, false); 
+			}
+		}
+		
+			
+	}
+	
+	/**
+	 * @author Aidan-S
+	 * date: March 30th, 2018
+	 * method: determine the index in the hash map from an array of string values
+	 * @param vals: string array of tictactoe values
+	 * @return: the index of this particular board
+	 */
+	public int getNum(String[] vals) {
+		int sum = 0;
+		int mult2[] = new int[]{1, 9, 25, 49, 81, 121, 169, 225, 289};
+		int mult3[] = new int[]{1, 27, 125, 343, 729, 1331, 2197, 3375, 4913};
+		for(int i = 0; i < vals.length; i++) {
+			if(vals[i].equals("x")) {
+				sum += mult3[i];
+			}else if(vals[i].equals("o")) {
+				sum += mult2[i] + 1;
+			}
 		}
 		
 		
+		return sum;
 	}
 	
-	public int getNum(String[] vals) {
-		
-		
-		return 0;
-	}
-	
-	
+	/**
+	 * @author Aidan-S
+	 * date: March 30th, 2018
+	 * method: determine the index in the hash map of the board
+	 * param: none
+	 * @return: the index of this board
+	 */
 	public int tttCode() {
-	  
-		
-		
-		
-		
-      return 0;
-   }
+		int mult2[][] = new int[][]{{1, 9, 25}, {49, 81, 121}, {169, 225, 289}};
+		int mult3[][] = new int[][]{{1, 27, 125}, {343, 729, 1331}, {2197, 3375, 4913}};
+		  int sum = 0;
+		  for(int r = 0; r < TicTacToe.ROWS; r++) {
+			  for(int c = 0; c < TicTacToe.ROWS; c++) {
+				  if(super.charAt(r, c) == 'x') {
+					  sum += mult3[r][c];
+			  }else{ 
+					  if(super.charAt(r, c) == 'o') {
+						  sum += mult2[r][c]; 
+					  }
+			      }
+			  }  
+		  }
+	      return sum;
+	   }
 
 	
 
@@ -61,27 +123,70 @@ final int SIZE = 19683;
 	}
 	
 	
-	
+	/**
+	 * @author Aidan-S
+	 * date: March 30th, 2018
+	 * method: main method that reads the tester file and tests if each line is a winning board
+	 * @param args: string arguments array
+	 * return: none
+	 * @throws java.lang.InterruptedException if something interrupts the GUI 
+	 */
 	public static void main(String[] args) throws InterruptedException {
 		TTT_HC board = new TTT_HC("Tic Tac Toe");
 		
-		Scanner file = openWords("TTT_Tests.txt");
-		String str;
-		while(file.hasNextLine()) {
-			str = file.nextLine();
 
-
+		
+		for(int i = 0; i < board.winners.length; i++) {
+			System.out.println(board.winners[i]);
 		}
 		
-		
-//		while (true) {   
-//			board.displayRandomString();
-//			board.setWinnerLabel(board.isWin(board.getBoardString()));
-//			Thread.sleep(4000);
-//		}
+
 		 
 		 
 	}
+
+	/**
+	 * @author Aidan-S
+	 * date: March 30th, 2018
+	 * method: required to extend board
+	 * @return: integer index of board in theory, but it isnt used
+	 */
+	@Override
+	int myHashCode() {	
+		return 0;
+	}
+
+	
+	/**
+	 * @author Aidan-S
+	 * date: March 30th, 2018
+	 * method: determines if the board is a winner by searching the winner array
+	 * @param s: string to examine if its a winner
+	 * @return: whether or not this is a winning board
+	 */
+	@Override
+	public boolean isWin(String s) {
+		if(winners[getNum(s.split("(?!^)"))].getValue()) {
+			return true;
+		}else {
+			return false;
+		}
+    }
+
+	/**
+	 * @author Aidan-S
+	 * date: March 30th, 2018
+	 * method: determines if the board is a winner by searching the winner array
+	 * param: none
+	 * @return: whether or not this is a winning board
+	 */
+	@Override
+	public boolean isWin() {
+    if(isWin(this.getBoardString()))
+    	return true;
+    else
+		return false;
+    }
 
 
 }

@@ -328,6 +328,7 @@ abstract class Board extends JFrame implements ActionListener {
 	 * method: display a random tictactoe board
 	 */
 	public void displayRandomString() {
+		//boardString = "";    --  this would fix it buuuuut i can't so ima just leave this comment here...
 		for (int r = 0; r < TicTacToe.ROWS; r++)
 			for (int c = 0; c < TicTacToe.COLS; c++) {
 				char ch = randomXO();

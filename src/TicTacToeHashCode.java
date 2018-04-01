@@ -151,22 +151,19 @@ public class TicTacToeHashCode extends Board {
 		
 		Scanner file = openWords("TTT_Tests.txt");
 		String str;
+		int line = 1;
 		while(file.hasNextLine()) {
 			str = file.nextLine();
 			if(str.length() == 9) {
 				board.setBoardString(str);
-				System.out.println(board.isWin());
+				board.setWinnerLabel(board.isWin(board.getBoardString()));
+				Thread.sleep(4000);
 			}else {
-				System.out.println(false);
+				System.out.println("line " + line + " is an invalid boardString");
 			}
+			line++;
 		}
 		
-		
-//		while (true) {   
-//			board.displayRandomString();
-//			board.setWinnerLabel(board.isWin(board.getBoardString()));
-//			Thread.sleep(4000);
-//		}
 		 
 		 
 	}

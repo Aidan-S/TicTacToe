@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class TicTacToeHashMap  {
 
-// TODO Define a hash map to store the winning strings as Key and true as Value
+//stores the winning strings as Key and true as Value
 	HashMap WinMap;
 	
 	
@@ -33,25 +33,6 @@ public class TicTacToeHashMap  {
 
    
 
-   /**
-	 * @author Aidan-S
-	 * date: March 23th, 2018
-	 * method: create a scanner that I can use to read in Prof. Kelly's files
-	 * @param fname: the name of the file to read
-	 * @param out: the file to print to
-	 * @return: the scanner for the given file
-	 */
-	public static Scanner openWords(String fname) {
-		File file = new File(fname);
-		Scanner input = null;
-		try {
-			input = new Scanner(file);
-		} catch (FileNotFoundException ex) {
-			System.out.println("This isnt there");
-			return null;
-		}
-		return input;	
-	}
 	
 	
    // TODO using the same code to get the table of entries as in the capacity method,
